@@ -13,6 +13,7 @@ import datetime
 import getpass
 import random
 
+
 RESET = "\033[0m"
 RED = "\033[91m"
 GREEN = "\033[92m"
@@ -34,11 +35,12 @@ ownlocal_ip = socket.gethostbyname(ownhostname)
 public_ip = requests.get("https://api.ipify.org").text
 admingg = 1
 
-PROMPT = BLUE + f" ┏╺╺╺【" + RED + "C" + ORANGE + "om" + RED + "F" + ORANGE + "ox" + BLUE + "】╺╺╺╺╺╺╺【" + ORANGE + f"{getpass.getuser()}" + BLUE + "】\n ┇\n ┗＄" + RED
+PROMPT = BLUE + f" ┌───> " + RED + "C" + ORANGE + "om" + RED + "F" + ORANGE + "ox" + BLUE + " <────────> " + ORANGE + f"{getpass.getuser()}" + BLUE + " < \n ┇\n └$ " + RED
+
 anim_symbol = "•"
 foxcount = 1
 
-# ──── ୨୧ ────
+# ──── ୨୧ ──── ʕ•ᴥ•ʔ
 # 「 ﹂ 【 】┏╰ Ι
 # ＄
 
@@ -86,8 +88,13 @@ def cmd_help():
     print(MAGENTA + " ● " + ORANGE_1 + "del     »   delete file")
     print(MAGENTA + " ● " + ORANGE_1 + "cat     »   display file content")
     print(MAGENTA + " ● " + ORANGE_1 + "pwd     »   show current directory")
+    print(MAGENTA + " ● " + ORANGE_1 + "update     »   start update process")
     print("")
- 
+
+def update():
+    subprocess.run([sys.executable, "updater.py"])
+    print("test")
+
 def cmd_clear():
     os.system("cls" if os.name == "nt" else "clear")
 
@@ -153,7 +160,7 @@ def hel():
     print(RED + f"Unknown Command: 'hel' Did you mean help?" + RESET)
 
 def reset():
-    filename = r"C:\Users\Btomi\Desktop\Developing\!PYTHON\terminal_pro\main.py"
+    filename = os.path.abspath(__file__)
     subprocess.run(f'start "" "{filename}"', shell=True)
     sys.exit()
 
@@ -431,8 +438,10 @@ commands = {
     "foxfetch": foxcore,
     "foxcore": foxcore,
     "admin": adminpanel,
+    "adminpanel": adminpanel,
     "changefox": changefox,
     "admincmd": admincmd,
+    "update": update
 
     
 
@@ -441,8 +450,10 @@ commands = {
 
 
 def main():
+    if os.name == "nt":
+        os.system("chcp 65001 > nul")
     cmd_clear()
-    print(RED + "ComFox started!\n" + RESET)
+    print(RED + " ● ComFox started!\n" + RESET)
 
     while True:
         user_input = input(PROMPT).strip()
@@ -461,7 +472,7 @@ def main():
         if cmd in commands:
             func = commands[cmd]
 
-            if cmd in ["cd", "mkdir", "rmdir", "del", "cat", "echo", "admin", "changefox", "admincmd"]:
+            if cmd in ["cd", "mkdir", "rmdir", "del", "cat", "echo", "adminpanel", "changefox", "admincmd"]:
                 if args == "":
                     print(RED + "Missing argument." + RESET)
                 else:
