@@ -15,6 +15,7 @@ ComFox includes its own built‑in commands:
 - `echo <text>` — print text  
 - `changefox --1/--2` — switch between fox styles  
 - `foxcore` / `foxfetch` — deep system scan with animations  
+- `update` — Runs the update process
 
 ### 🔸 System Commands
 Basic shell‑like functionality:
